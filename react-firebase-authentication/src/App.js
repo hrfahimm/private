@@ -35,6 +35,9 @@ function App() {
 
 	const handleRegistration = (e) => {
 		console.log(email, password);
+		if (password.length < 6) {
+			return;
+		}
 		createUserWithEmailAndPassword(auth, email, password).then((result) => {
 			const user = result.user;
 			console.log(user);
