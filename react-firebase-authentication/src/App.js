@@ -17,6 +17,7 @@ function App() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [user, setUser] = useState({});
+	const [error, setError] = useState("");
 
 	const auth = getAuth();
 	const handleGoogleSignIn = () => {
@@ -34,15 +35,16 @@ function App() {
 	};
 
 	const handleRegistration = (e) => {
+		e.preventDefault();
 		console.log(email, password);
 		if (password.length < 6) {
+			setError("Password Must Be Atlist 6 cerecter");
 			return;
 		}
 		createUserWithEmailAndPassword(auth, email, password).then((result) => {
 			const user = result.user;
 			console.log(user);
 		});
-		e.preventDefault();
 	};
 
 	const handleEmailChange = (e) => {
@@ -103,6 +105,7 @@ function App() {
 							</div>
 						</div>
 					</div>
+					<div className="row mb-3 text-danger">{error}</div>
 					<button type="submit" className="btn btn-primary">
 						Register
 					</button>
