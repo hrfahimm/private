@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import useFireBase from "../../hooks/useFirebase";
+import useAuth from "../../hooks/useAuth";
+
 const Header = () => {
-    const { user } = useFireBase;
+    const { user, logout } = useAuth();
     return (
         <div className="header mb-5 border border-dark">
             <Link className="border p-2 m-3 btn btn-secondary" to="/home">
                 Home
+            </Link>
+            <Link className="border p-2 m-3 btn btn-secondary" to="/shipping">
+                Shipping
             </Link>
             <Link className="border p-2 m-3 btn btn-secondary" to="/register">
                 Register
@@ -15,8 +19,12 @@ const Header = () => {
             <Link className="border p-2 m-3 btn btn-secondary" to="/login">
                 Login
             </Link>
+            <span> {user.displayNamex} </span>
             {user?.email && (
-                <button className="border p-2  m-3 btn btn-danger">
+                <button
+                    onClick={logout}
+                    className="border p-2  m-3 btn btn-danger"
+                >
                     LogOut
                 </button>
             )}

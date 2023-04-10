@@ -5,6 +5,7 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     onAuthStateChanged,
+    signOut,
 } from "firebase/auth";
 
 initializeAuthentication();
@@ -27,6 +28,13 @@ const useFireBase = () => {
                 setError(error.message);
             });
     };
+
+    const logout = () => {
+        signOut(auth).then((result) => {
+            setUser({});
+        });
+    };
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -35,6 +43,6 @@ const useFireBase = () => {
             }
         });
     }, []);
-    return { user, error, signInUsIngGoogle };
+    return { user, error, signInUsIngGoogle, logout };
 };
 export default useFireBase;
